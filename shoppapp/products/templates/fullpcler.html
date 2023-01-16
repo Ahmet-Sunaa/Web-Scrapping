@@ -1,0 +1,493 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>E Ticaret</title>
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+    <script>!function (n, t) { "object" == typeof exports && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : (n = "undefined" != typeof globalThis ? globalThis : n || self).LazyLoad = t() }(this, (function () { "use strict"; function n() { return n = Object.assign || function (n) { for (var t = 1; t < arguments.length; t++) { var e = arguments[t]; for (var i in e) Object.prototype.hasOwnProperty.call(e, i) && (n[i] = e[i]) } return n }, n.apply(this, arguments) } var t = "undefined" != typeof window, e = t && !("onscroll" in window) || "undefined" != typeof navigator && /(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent), i = t && "IntersectionObserver" in window, o = t && "classList" in document.createElement("p"), a = t && window.devicePixelRatio > 1, r = { elements_selector: ".lazy", container: e || t ? document : null, threshold: 300, thresholds: null, data_src: "src", data_srcset: "srcset", data_sizes: "sizes", data_bg: "bg", data_bg_hidpi: "bg-hidpi", data_bg_multi: "bg-multi", data_bg_multi_hidpi: "bg-multi-hidpi", data_bg_set: "bg-set", data_poster: "poster", class_applied: "applied", class_loading: "loading", class_loaded: "loaded", class_error: "error", class_entered: "entered", class_exited: "exited", unobserve_completed: !0, unobserve_entered: !1, cancel_on_exit: !0, callback_enter: null, callback_exit: null, callback_applied: null, callback_loading: null, callback_loaded: null, callback_error: null, callback_finish: null, callback_cancel: null, use_native: !1, restore_on_error: !1 }, c = function (t) { return n({}, r, t) }, l = function (n, t) { var e, i = "LazyLoad::Initialized", o = new n(t); try { e = new CustomEvent(i, { detail: { instance: o } }) } catch (n) { (e = document.createEvent("CustomEvent")).initCustomEvent(i, !1, !1, { instance: o }) } window.dispatchEvent(e) }, u = "src", s = "srcset", d = "sizes", f = "poster", _ = "llOriginalAttrs", g = "data", v = "loading", b = "loaded", m = "applied", p = "error", h = "native", E = "data-", I = "ll-status", y = function (n, t) { return n.getAttribute(E + t) }, k = function (n) { return y(n, I) }, w = function (n, t) { return function (n, t, e) { var i = "data-ll-status"; null !== e ? n.setAttribute(i, e) : n.removeAttribute(i) }(n, 0, t) }, A = function (n) { return w(n, null) }, L = function (n) { return null === k(n) }, O = function (n) { return k(n) === h }, x = [v, b, m, p], C = function (n, t, e, i) { n && (void 0 === i ? void 0 === e ? n(t) : n(t, e) : n(t, e, i)) }, N = function (n, t) { o ? n.classList.add(t) : n.className += (n.className ? " " : "") + t }, M = function (n, t) { o ? n.classList.remove(t) : n.className = n.className.replace(new RegExp("(^|\\s+)" + t + "(\\s+|$)"), " ").replace(/^\s+/, "").replace(/\s+$/, "") }, z = function (n) { return n.llTempImage }, T = function (n, t) { if (t) { var e = t._observer; e && e.unobserve(n) } }, R = function (n, t) { n && (n.loadingCount += t) }, G = function (n, t) { n && (n.toLoadCount = t) }, j = function (n) { for (var t, e = [], i = 0; t = n.children[i]; i += 1)"SOURCE" === t.tagName && e.push(t); return e }, D = function (n, t) { var e = n.parentNode; e && "PICTURE" === e.tagName && j(e).forEach(t) }, H = function (n, t) { j(n).forEach(t) }, V = [u], F = [u, f], B = [u, s, d], J = [g], P = function (n) { return !!n[_] }, S = function (n) { return n[_] }, U = function (n) { return delete n[_] }, $ = function (n, t) { if (!P(n)) { var e = {}; t.forEach((function (t) { e[t] = n.getAttribute(t) })), n[_] = e } }, q = function (n, t) { if (P(n)) { var e = S(n); t.forEach((function (t) { !function (n, t, e) { e ? n.setAttribute(t, e) : n.removeAttribute(t) }(n, t, e[t]) })) } }, K = function (n, t, e) { N(n, t.class_applied), w(n, m), e && (t.unobserve_completed && T(n, t), C(t.callback_applied, n, e)) }, Q = function (n, t, e) { N(n, t.class_loading), w(n, v), e && (R(e, 1), C(t.callback_loading, n, e)) }, W = function (n, t, e) { e && n.setAttribute(t, e) }, X = function (n, t) { W(n, d, y(n, t.data_sizes)), W(n, s, y(n, t.data_srcset)), W(n, u, y(n, t.data_src)) }, Y = { IMG: function (n, t) { D(n, (function (n) { $(n, B), X(n, t) })), $(n, B), X(n, t) }, IFRAME: function (n, t) { $(n, V), W(n, u, y(n, t.data_src)) }, VIDEO: function (n, t) { H(n, (function (n) { $(n, V), W(n, u, y(n, t.data_src)) })), $(n, F), W(n, f, y(n, t.data_poster)), W(n, u, y(n, t.data_src)), n.load() }, OBJECT: function (n, t) { $(n, J), W(n, g, y(n, t.data_src)) } }, Z = ["IMG", "IFRAME", "VIDEO", "OBJECT"], nn = function (n, t) { !t || function (n) { return n.loadingCount > 0 }(t) || function (n) { return n.toLoadCount > 0 }(t) || C(n.callback_finish, t) }, tn = function (n, t, e) { n.addEventListener(t, e), n.llEvLisnrs[t] = e }, en = function (n, t, e) { n.removeEventListener(t, e) }, on = function (n) { return !!n.llEvLisnrs }, an = function (n) { if (on(n)) { var t = n.llEvLisnrs; for (var e in t) { var i = t[e]; en(n, e, i) } delete n.llEvLisnrs } }, rn = function (n, t, e) { !function (n) { delete n.llTempImage }(n), R(e, -1), function (n) { n && (n.toLoadCount -= 1) }(e), M(n, t.class_loading), t.unobserve_completed && T(n, e) }, cn = function (n, t, e) { var i = z(n) || n; on(i) || function (n, t, e) { on(n) || (n.llEvLisnrs = {}); var i = "VIDEO" === n.tagName ? "loadeddata" : "load"; tn(n, i, t), tn(n, "error", e) }(i, (function (o) { !function (n, t, e, i) { var o = O(t); rn(t, e, i), N(t, e.class_loaded), w(t, b), C(e.callback_loaded, t, i), o || nn(e, i) }(0, n, t, e), an(i) }), (function (o) { !function (n, t, e, i) { var o = O(t); rn(t, e, i), N(t, e.class_error), w(t, p), C(e.callback_error, t, i), e.restore_on_error && q(t, B), o || nn(e, i) }(0, n, t, e), an(i) })) }, ln = function (n, t, e) { !function (n) { return Z.indexOf(n.tagName) > -1 }(n) ? function (n, t, e) { !function (n) { n.llTempImage = document.createElement("IMG") }(n), cn(n, t, e), function (n) { P(n) || (n[_] = { backgroundImage: n.style.backgroundImage }) }(n), function (n, t, e) { var i = y(n, t.data_bg), o = y(n, t.data_bg_hidpi), r = a && o ? o : i; r && (n.style.backgroundImage = 'url("'.concat(r, '")'), z(n).setAttribute(u, r), Q(n, t, e)) }(n, t, e), function (n, t, e) { var i = y(n, t.data_bg_multi), o = y(n, t.data_bg_multi_hidpi), r = a && o ? o : i; r && (n.style.backgroundImage = r, K(n, t, e)) }(n, t, e), function (n, t, e) { var i = y(n, t.data_bg_set); if (i) { var o = i.split("|"), a = o.map((function (n) { return "image-set(".concat(n, ")") })); n.style.backgroundImage = a.join(), "" === n.style.backgroundImage && (a = o.map((function (n) { return "-webkit-image-set(".concat(n, ")") })), n.style.backgroundImage = a.join()), K(n, t, e) } }(n, t, e) }(n, t, e) : function (n, t, e) { cn(n, t, e), function (n, t, e) { var i = Y[n.tagName]; i && (i(n, t), Q(n, t, e)) }(n, t, e) }(n, t, e) }, un = function (n) { n.removeAttribute(u), n.removeAttribute(s), n.removeAttribute(d) }, sn = function (n) { D(n, (function (n) { q(n, B) })), q(n, B) }, dn = { IMG: sn, IFRAME: function (n) { q(n, V) }, VIDEO: function (n) { H(n, (function (n) { q(n, V) })), q(n, F), n.load() }, OBJECT: function (n) { q(n, J) } }, fn = function (n, t) { (function (n) { var t = dn[n.tagName]; t ? t(n) : function (n) { if (P(n)) { var t = S(n); n.style.backgroundImage = t.backgroundImage } }(n) })(n), function (n, t) { L(n) || O(n) || (M(n, t.class_entered), M(n, t.class_exited), M(n, t.class_applied), M(n, t.class_loading), M(n, t.class_loaded), M(n, t.class_error)) }(n, t), A(n), U(n) }, _n = ["IMG", "IFRAME", "VIDEO"], gn = function (n) { return n.use_native && "loading" in HTMLImageElement.prototype }, vn = function (n, t, e) { n.forEach((function (n) { return function (n) { return n.isIntersecting || n.intersectionRatio > 0 }(n) ? function (n, t, e, i) { var o = function (n) { return x.indexOf(k(n)) >= 0 }(n); w(n, "entered"), N(n, e.class_entered), M(n, e.class_exited), function (n, t, e) { t.unobserve_entered && T(n, e) }(n, e, i), C(e.callback_enter, n, t, i), o || ln(n, e, i) }(n.target, n, t, e) : function (n, t, e, i) { L(n) || (N(n, e.class_exited), function (n, t, e, i) { e.cancel_on_exit && function (n) { return k(n) === v }(n) && "IMG" === n.tagName && (an(n), function (n) { D(n, (function (n) { un(n) })), un(n) }(n), sn(n), M(n, e.class_loading), R(i, -1), A(n), C(e.callback_cancel, n, t, i)) }(n, t, e, i), C(e.callback_exit, n, t, i)) }(n.target, n, t, e) })) }, bn = function (n) { return Array.prototype.slice.call(n) }, mn = function (n) { return n.container.querySelectorAll(n.elements_selector) }, pn = function (n) { return function (n) { return k(n) === p }(n) }, hn = function (n, t) { return function (n) { return bn(n).filter(L) }(n || mn(t)) }, En = function (n, e) { var o = c(n); this._settings = o, this.loadingCount = 0, function (n, t) { i && !gn(n) && (t._observer = new IntersectionObserver((function (e) { vn(e, n, t) }), function (n) { return { root: n.container === document ? null : n.container, rootMargin: n.thresholds || n.threshold + "px" } }(n))) }(o, this), function (n, e) { t && (e._onlineHandler = function () { !function (n, t) { var e; (e = mn(n), bn(e).filter(pn)).forEach((function (t) { M(t, n.class_error), A(t) })), t.update() }(n, e) }, window.addEventListener("online", e._onlineHandler)) }(o, this), this.update(e) }; return En.prototype = { update: function (n) { var t, o, a = this._settings, r = hn(n, a); G(this, r.length), !e && i ? gn(a) ? function (n, t, e) { n.forEach((function (n) { -1 !== _n.indexOf(n.tagName) && function (n, t, e) { n.setAttribute("loading", "lazy"), cn(n, t, e), function (n, t) { var e = Y[n.tagName]; e && e(n, t) }(n, t), w(n, h) }(n, t, e) })), G(e, 0) }(r, a, this) : (o = r, function (n) { n.disconnect() }(t = this._observer), function (n, t) { t.forEach((function (t) { n.observe(t) })) }(t, o)) : this.loadAll(r) }, destroy: function () { this._observer && this._observer.disconnect(), t && window.removeEventListener("online", this._onlineHandler), mn(this._settings).forEach((function (n) { U(n) })), delete this._observer, delete this._settings, delete this._onlineHandler, delete this.loadingCount, delete this.toLoadCount }, loadAll: function (n) { var t = this, e = this._settings; hn(n, e).forEach((function (n) { T(n, t), ln(n, e, t) })) }, restoreAll: function () { var n = this._settings; mn(n).forEach((function (t) { fn(t, n) })) } }, En.load = function (n, t) { var e = c(t); ln(n, e) }, En.resetStatus = function (n) { A(n) }, t && function (n, t) { if (t) if (t.length) for (var e, i = 0; e = t[i]; i += 1)l(n, e); else l(n, t) }(En, window.lazyLoadOptions), En }));
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            background-color: #eaeaea;
+            border-left: 1px solid #ccc;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgb(53, 167, 138);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgb(53, 167, 138);
+        }
+
+        .cerceve {
+            width: 355px;
+        }
+
+        .scrol {
+            display: block;
+            cursor: pointer;
+            margin-top: -17px;
+            padding: 15px;
+
+        }
+
+        .bar {
+            background: url(tersok1.png) no-repeat;
+            float: right;
+            width: 10px;
+            height: 5px;
+            left: -25%;
+            margin-top: 8px;
+            position: relative;
+            transform: rotate(180deg)
+        }
+
+        .css1 {
+            color: black;
+            background-color: aquamarine;
+        }
+
+        .css1:hover span {
+            display: block;
+        }
+
+        .css1 span {
+            display: none;
+            color: #111;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="ustbaslik"></div>
+    <div class="full_satir">
+
+        <div class="menu cerceve">
+            <ul>
+                <li> menu
+                    <ul>
+                        <li><a style="text-decoration:none;" href="/products/">etiket1</a></li>
+                        <li><a style="text-decoration:none;" href="/allproducts/">etiket2</a></li>
+                        <li><a style="text-decoration:none;" href="/">etiket3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                background-color:beige;
+            }
+
+            .full_satir {
+                height: 60px;
+                background-color: beige;
+            }
+
+            .menu {
+                position: absolute;
+                width: 100px;
+                height: 50px;
+                border: 25px;
+                left: 3%;
+
+            }
+
+            .menu ul {
+                text-align: center;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .menu li {
+                position: relative;
+                width: 100px;
+                height: 25px;
+                font-size: large;
+                text-align: center;
+                top: 20px;
+                color: white;
+                background-color: #333;
+                border-radius: 16px 16px 16px 16px;
+
+            }
+
+            .menu ul li ul {
+                display: none;
+            }
+
+            .menu ul li:hover ul {
+                display: block;
+            }
+
+            .menu ul li a {
+                text-decoration: none;
+                background: red;
+                display: block;
+                color: white;
+                font-weight: bold;
+                font-family: sans-serif;
+                text-align: center;
+                border-bottom: 2px solid red;
+                border-left: 1px solid #595959;
+                padding: 7px;
+            }
+
+            .menu ul li ul li a {
+                background: #333;
+                text-align: left;
+                padding: 5px;
+                border-bottom: 1px solid #333;
+                font-size: .8em;
+            }
+
+            .menu li a:hover {
+                background: rgb(21, 248, 0);
+                transition: .5s;
+            }
+
+            .menu ul li ul li a:hover {
+                padding-left: 15px;
+
+            }
+        </style>
+
+
+
+        <div class="arama ">
+            <form class="search" method="get">
+                <input type="text" name="q" placeholder="arama" value="{{ request.GET.q }}" required>
+                <button type="submit">ARA</button>
+            </form>
+        </div>
+        <style>
+            .ustbaslik {
+                padding-bottom: 20px;
+                padding-top: 20px;
+                background-color: rgb(53, 167, 138);
+            }
+
+            .arama {
+                top: 5.5%;
+            }
+
+            form.search {
+                display: flex;
+                position: absolute;
+                width: 30%;
+                left: 45%;
+                padding-top: 0.7%;
+            }
+
+            form.search input {
+                height: 40px;
+                width: 250px;
+                border: 1px solid #ddd;
+                border-radius: 16px 0 0 16px;
+                font-size: 16px;
+                font-weight: 500;
+                box-sizing: border-box;
+                padding: 0 15px;
+                flex: 1;
+                outline: 0;
+            }
+
+            form.search button {
+                height: 40px;
+                padding: 0 30px;
+                background: #393a3b;
+                color: #fff;
+                border-radius: 0 16px 16px 0;
+                cursor: pointer;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 500;
+                border: none;
+            }
+        </style>
+
+        <div class="company">
+            <b style="font-size:55px;">Enuygun</b>
+        </div>
+        <style>
+            .company b {
+                text-align: center;
+                position: relative;
+                left: 15%;
+                top: 20%;
+                font-style: oblique;
+                text-shadow: 4px 2px #333;
+            }
+        </style>
+
+
+    </div>
+    <div class="css_1">
+
+
+        <div class="ilanlar">
+        {% for product in page_obj %}
+            <div class="ilan ilan2">
+                <article>
+                    <a data-id="2053839778" href="main.html" title="pc adi">
+                        <div class="bos_alan"></div>
+                        <div class="resim">
+                            <div class="resim1">
+                                <a href="{% url 'feature' id=product.id %}"><img class="resim2 entered loaded" src="{{ product.picture_url }}" width="178" height="178" alt="" sizes="178px"></a>
+                            </div>
+                        </div>
+                        <div class="yildiz">
+                            <div class="yildiz1"></div>
+                        </div>
+                        <h3 title="" class="urun-adi" ><a href="{% url 'feature' id=product.id %}"> {{ product.title }}</a></h3>
+
+                        <div class="yonlendirme">
+                        {% if product.seller_name == "Trendyol" %}
+                            <a class="yonlendirme1" href="{{ product.url }}">
+                                <img src="{% static '/img/trendyol.jpg' %}"
+                                    style="height: 50px; left: 50px; top: 10px; position: relative;">
+                                <div style="position: relative; top: 50px;"> {{product.price}} TL</div>
+                            </a>
+                        {% elif product.seller_name == "N11" %}
+                            <a class="yonlendirme1 yonlendirme2" href="{{ product.url }}">
+                                <img src="{% static '/img/n11.png' %}" style="height: 50px; left: 50px; top: 10px; position: relative;">
+                                <div style="position: relative; top: 50px;"> {{product.price}} TL</div>
+
+                            </a>
+                        {% elif product.seller_name == "MediaMarkt" %}
+                            <a class="yonlendirme1 yonlendirme2" href="{{ product.url }}">
+                                <img src="{% static '/img/mediamark.png' %}"
+                                    style="height: 50px; left: 50px; top:10px; width: 115px; position: relative;">
+                                
+                                <div style="position: relative; top: 50px;"> {{product.price}} TL</div>
+
+                            </a>
+                        {% elif product.seller_name == "HepsiBurada" %}
+                            <a class="yonlendirme1 yonlendirme2" href="{{ product.url }}">
+                                <img src="{% static '/img/hepsiburada.png' %}"
+                                    style="height: 50px; left: 50px; top: 10px; width: 115px; position: relative;">
+                                <div style="position: relative; top: 50px;"> {{product.price}}TL</div>
+
+                            </a>
+                        {% endif %}
+                        </div>
+                    </a>
+                </article>
+            </div>
+
+            
+
+            <style>
+                .ilan2 {
+                    width: auto;
+                    width: 33.3%;
+                    padding-right: 5px;
+                    padding-left: 5px;
+                    display: inline-block;
+                    vertical-align: top;
+                    position: relative;
+                }
+
+                @media (min-width:1200px) {
+                    .ilan2 {
+                        width: 16%;
+                    }
+                }
+
+                .ilan .resim {
+                    text-align: center;
+                    -webkit-box-pack: center;
+                    -webkit-justify-content: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                }
+
+                .ilan .resim>a>img {
+                    max-width: 178px;
+                }
+
+                .ilan>article {
+                    position: relative;
+                    background-color: #fff;
+                    border-radius: 4px;
+                    height: 440px;
+                    -webkit-transition: box-shadow 0.4s;
+                    transition: box-shadow 0.4s;
+                    cursor: pointer;
+                    width: initial;
+                }
+
+                .ilan>article:hover {
+                    box-shadow: 0 4px 12px -5px #334c67;
+                }
+
+                .ilan {
+                    box-sizing: border-box;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                }
+
+                .ilan:only-child {
+                    padding: 5px;
+                }
+
+                .ilan .bos_alan {
+                    margin-left: 20px;
+                    margin-top: 12px;
+                    position: absolute;
+                    z-index: 2;
+                }
+
+                .ilan .yildiz {
+                    margin: 0 15px 0 15px;
+                    height: 14px;
+                }
+
+                .resim1 {
+                    display: inline-block;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                }
+
+                .resim2 {
+                    width: 178px;
+                    height: 178px;
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                }
+
+                .ilan .comparison-layout {
+                    position: relative;
+                }
+
+                .yildiz1 {
+                    display: inline-block;
+                }
+
+                .yildiz1:empty {
+                    display: none;
+                }
+
+                .yildiz1>div {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-align-items: center;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                }
+
+                .ilan .urun-adi {
+                    font-size: 13px;
+                    text-align: left;
+                    margin-top: 6px;
+                    margin-left: 15px;
+                    font-weight: bold;
+                    color: #3e4145;
+                    -webkit-text-decoration: none;
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 200px;
+                    height: 35px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    margin-bottom: 0;
+                }
+
+                .ilan .yonlendirme {
+                    position: relative;
+                    height: 150px;
+                    margin-top: 9px;
+                    margin-bottom: 9px;
+                    min-height: 93px;
+                }
+
+                .yonlendirme1 {
+                    position: relative;
+                    height: 70px;
+                    top: -25px;
+                    -webkit-text-decoration: none;
+                    text-decoration: none;
+                    font-size: 15px;
+                    font-weight: bold;
+                    text-align: left;
+                    color: #3e4145;
+                    display: block;
+                    margin: 0px 15px 3px 16px;
+                    padding: 3px 16px 7px 0px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    -webkit-transition: 0.3s ease;
+                    transition: 0.3s ease;
+                }
+
+                .yonlendirme1:hover {
+                    padding-left: 9px;
+                    background-color: #f5f5f5;
+                }
+
+                .yonlendirme1 .tag {
+                    width: 100%;
+                    height: 15px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    text-align: left;
+                    margin-right: 10px;
+                    color: #4990e2;
+                    top: -40px;
+                    position: relative;
+                }
+
+                .yonlendirme2 {
+                    height: 70px;
+                    position: relative;
+                    top: -10px;
+                }
+            </style>
+        {% endfor %}
+        </div>
+        <div class="align-bottom">
+            
+            <div class="pagination" style="position:relative;left: 500px">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1&q={{ request.GET.q }}">&laquo; İlk</a>
+                        <a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}">Önceki</a>
+                    {% endif %}
+                
+                    <span class="current">
+                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Sonraki</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q }}">Son &raquo;</a>
+                    {% endif %}
+                </span>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

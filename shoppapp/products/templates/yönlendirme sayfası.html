@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>E Ticaret</title>
+    <link rel="stylesheet" href="eticaret.css">
+</head>
+
+<body>
+    
+
+    <div class="yonlendirme-1">
+        <div >
+            <h1 style="text-align: center; padding-top: 100px;color: #fff;">Gitmek İstediğiniz Wep Sayfasını Seçiniz</h1>
+            <h1 style="text-align: center; padding-top: 100px;color: #fff;">{{ status }}</h1>
+        </div>
+
+        <div class="alma" >
+            <button class="btn"><a href="/admin/">Admin Sayfası</a></button>
+            <button class="btn"><a href='/allproducts/'>Tüm ürünler sayfası</a></button>
+            <button class="btn"><a href='/products/'>E ticaret sitesi</a></button>
+            <button class="btn"><a href='/'>Güncelle</a></button>
+        </div>
+    </div>
+    <style>
+        body{
+            height: auto;
+            background-color: cadetblue;
+            
+        }
+        .yonlendirme-1{
+            position: relative;
+            {% comment %} width: 100%; {% endcomment %}
+            {% comment %} height: 750px; {% endcomment %}
+            margin: 7% 0% 7% 0%;
+            justify-content:center;
+        }
+        .alma{
+            padding-top: 10px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            
+        }
+        .btn{
+            margin: 3% 0 0 42%;
+            height: 40px;
+            padding: 0 30px;
+            width: 250px;
+            background: rgb(41, 223, 192);
+            border-radius: 16px 16px 16px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bolder;
+            border: none;
+        }
+        .alma button:first-child {
+            {% comment %} justify-content:center; {% endcomment %}
+            {% comment %} margin: 15% 0 0 0%; {% endcomment %}
+            {% comment %} height: 40px;
+            padding: 0 30px;
+            width: 250px;
+            background: rgb(41, 223, 192);
+            border-radius: 16px 16px 16px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bolder;
+            border: none; {% endcomment %}
+        }
+        
+        .alma button:nth-child(2n){
+            {% comment %} margin-left:13%; {% endcomment %}
+            {% comment %} height: 40px;
+            padding: 0 30px;
+            width: 250px;
+            background: rgb(41, 223, 192);
+            
+            border-radius: 16px 16px 16px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bolder;
+            border: none; {% endcomment %}
+        }
+        .alma button:last-child{
+            {% comment %} margin-left:36%; {% endcomment %}
+            {% comment %} margin-top: 10%;
+            height: 40px;
+            padding: 0 30px;
+            width: 250px;
+            background: rgb(41, 223, 192);
+            
+            border-radius: 16px 16px 16px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bolder;
+            border: none; {% endcomment %}
+        }
+        
+        .alma button a{
+            text-decoration: none;
+            color: #fff;
+        }
+
+    </style>
+</body>
+
+</html>
