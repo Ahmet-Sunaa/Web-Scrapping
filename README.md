@@ -1,5 +1,5 @@
 
-# E-Commerce Website (Django)
+# Web-Scrapping (Django)
 
 A dynamic and fully functional e-commerce website developed using **Django**.  
 This project demonstrates backend development skills, database management, and interactive user interfaces.
@@ -92,7 +92,7 @@ This project demonstrates backend development skills, database management, and i
 
 ---
 
-# E-Ticaret Web Sitesi (Django)
+# Web Kazıma (Django)
 
 **Django** kullanılarak geliştirilmiş dinamik ve tam işlevsel bir e-ticaret web sitesi.  
 Bu proje, backend geliştirme becerilerini, veritabanı yönetimini ve etkileşimli kullanıcı arayüzlerini sergiler.
